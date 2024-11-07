@@ -1,0 +1,86 @@
+[
+    {
+      "id": 1,
+      "name": "Футболка с коротким рукавом",
+      "description": "Удобная футболка из 100% хлопка",
+      "price": 1200,
+      "image": "/images/products/1.jpeg"
+    },
+    {
+      "id": 2,
+      "name": "Джинсы скинни",
+      "description": "Стильные джинсы скинни, удобный крой",
+      "price": 2500,
+      "image": "/images/products/2.jpeg"
+    },
+    {
+      "id": 3,
+      "name": "Кроссовки спортивные",
+      "description": "Легкие и удобные кроссовки для бега",
+      "price": 4500,
+      "image": "/images/products/3.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Куртка демисезонная",
+      "description": "Теплая куртка для прохладной погоды",
+      "price": 7000,
+      "image": "/images/products/4.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Сапоги кожаные",
+      "description": "Высокие кожаные сапоги для осеннего сезона",
+      "price": 8500,
+      "image": "/images/products/5.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Платье летнее",
+      "description": "Легкое платье для жаркой погоды",
+      "price": 3000,
+      "image": "/images/products/6.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Туфли классические",
+      "description": "Классические туфли для официальных мероприятий",
+      "price": 5500,
+      "image": "/images/products/7.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Шорты джинсовые",
+      "description": "Комфортные джинсовые шорты",
+      "price": 1800,
+      "image": "/images/products/8.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Футболка с длинным рукавом",
+      "description": "Футболка из мягкого хлопка с длинным рукавом",
+      "price": 1500,
+      "image": "/images/products/9.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Сандалии пляжные",
+      "description": "Легкие сандалии для пляжного отдыха",
+      "price": 1000,
+      "image": "/images/products/10.jpg"
+    },
+    {
+      "id": 11,
+      "name": "Толстовка с капюшоном",
+      "description": "Толстовка с капюшоном для прохладных дней",
+      "price": 2200,
+      "image": "/images/products/11.jpg"
+    },
+    {
+      "id": 12,
+      "name": "Ботинки зимние",
+      "description": "Теплые зимние ботинки с меховой подкладкой",
+      "price": 9000,
+      "image": "/images/products/12.jpg"
+    }
+  ]
