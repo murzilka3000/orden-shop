@@ -12,5 +12,4 @@ export type Product = {
     price: number; 
     name: string;
     image: string
-
 };

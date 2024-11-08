@@ -1,0 +1,26 @@
+
+
+.cart_block {
+    background: linear-gradient(180deg, #8784d6 0%, rgba(135, 132, 214, 0) 100%),
+                linear-gradient(360deg, #ea526f 0%, rgba(233, 76, 40, 0) 100%);
+}
+
+.cart_container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    > .cart_item {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        >img {
+            max-width: 600px;
+        }
+    }
+}
+
+.quantity_container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
