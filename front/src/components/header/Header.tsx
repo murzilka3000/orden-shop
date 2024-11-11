@@ -27,9 +27,12 @@ const Header = () => {
               </button>
           </Link>
         </div>
-        <div>
+        <div className={s.header_right}>
           <Link to="/cart">
             <img src="/images/icons/cart.svg" alt="cart" />
+          </Link>
+          <Link to="/favorites">
+            <img src="/images/icons/favoitites.svg" alt="cart" />
           </Link>
         </div>
         </div>

@@ -1,0 +1,17 @@
+
+
+.product_detail {
+    > img {
+        width: 100%;
+        max-width: 500px;
+    }
+    >h2 {
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 2rem;
+        margin-top: 20px;
+        color: black;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+}

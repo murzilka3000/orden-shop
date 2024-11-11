@@ -43,6 +43,7 @@ const Cart: React.FC = () => {
                         <img src={item.image} alt="" />
                         <div>
                             <p>{item.name}</p>
+                            <p>{item.price}</p>
                             <div className={s.quantity_container}>
                                 <button onClick={() => handleDecreaseQuantity(item.productId)}>-</button>
                                 <p>{item.quantity}</p>
