@@ -9,22 +9,25 @@ import "./App.css";
 import CheckoutPage from "./pages/checkout_page/CheckoutPage";
 import FavoritesPage from "./pages/favorites_page/FavoritesPage";
 import ProductDetail from "./components/product_detail/ProductDetail";
+import { FavoritesProvider } from "./context/FavoritesContext";
 
 const App: React.FC = () => {
   return (
       <BrowserRouter>
-        <CartProvider>
-          <Header/>
-            <Routes>
-                <Route path="/"  element={<Home/>}/>
-                <Route path="/cart"  element={<CartPage/>}/>
-                <Route path="/shop"  element={<Shop/>}/>
-                <Route path="/checkout"  element={<CheckoutPage/>}/>
-                <Route path="/favorites"  element={<FavoritesPage/>}/>
-                <Route path="/product/:productId" element={<ProductDetail/>}/>
-            </Routes>
-            <Footer/>
-        </CartProvider>
+        <FavoritesProvider>
+          <CartProvider>
+            <Header/>
+              <Routes>
+                  <Route path="/"  element={<Home/>}/>
+                  <Route path="/cart"  element={<CartPage/>}/>
+                  <Route path="/shop"  element={<Shop/>}/>
+                  <Route path="/checkout"  element={<CheckoutPage/>}/>
+                  <Route path="/favorites"  element={<FavoritesPage/>}/>
+                  <Route path="/product/:productId" element={<ProductDetail/>}/>
+              </Routes>
+              <Footer/>
+          </CartProvider>
+        </FavoritesProvider>
       </BrowserRouter>
   );
 };
