@@ -1,25 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFavorites } from '../../context/FavoritesContext';
 import productsData from '../../data/products.json';
 import { Product } from '../../types/Type';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import Notification from '../notification/Notification';
 
 const FavoritesList: React.FC = () => {
     const { state, dispatch: favoriteDispatch } = useFavorites();
     const { dispatch: cartDispatch } = useCart();
     const navigate = useNavigate();
 
-    // Находим избранные товары
+    const [notification, setNotification] = useState<string | null>(null); // Состояние для уведомления
+
     const favoriteProducts: Product[] = productsData.filter(product => state.items.includes(product.id));
 
     if (favoriteProducts.length === 0) {
         return <p>Your favorites list is empty.</p>;
     }
 
-    // Функция добавления товара в корзину и удаления из избранного
     const handleAddToCart = (product: Product) => {
-      // Добавляем товар в корзину
       cartDispatch({
         type: 'ADD_TO_CART',
         payload: {
@@ -30,9 +30,10 @@ const FavoritesList: React.FC = () => {
           image: product.image,
         },
       });
-      // Удаляем товар из избранного
       favoriteDispatch({ type: 'REMOVE_FROM_FAVORITES', payload: product.id });
-      // Переход в корзину после добавления
+
+      // Устанавливаем уведомление
+      setNotification('Product added to cart!');
       navigate('/cart');
     };
 
@@ -49,6 +50,14 @@ const FavoritesList: React.FC = () => {
                     </li>
                 ))}
             </ul>
+
+            {/* Показываем уведомление, если оно установлено */}
+            {notification && (
+                <Notification 
+                    message={notification} 
+                    onClose={() => setNotification(null)} 
+                />
+            )}
         </div>
     );
 };

@@ -26,6 +26,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         image: product.image,
       },
     });
+
+    // Удаляем товар из избранного
+    favoriteDispatch({ type: 'REMOVE_FROM_FAVORITES', payload: product.id });
+
+    alert('Product added to cart!');
+
+
   };
 
   // Функция для добавления/удаления из избранного
@@ -43,7 +50,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <Link to={`/product/${product.id}`}>
         <img className={s.product_image} src={product.image} alt={product.name} />
         <h3>{product.name}</h3>
-        <p>{product.description}</p>
         <p>Price: ${product.price}</p>
       </Link>
       <button onClick={handleAddToCart}>Add to cart</button>
