@@ -1,13 +1,12 @@
-
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 
 type FavoriteState = {
-    items: number[]; // Массив id товаров
+    items: string[]; // Массив строковых id товаров
 };
 
 type FavoriteAction = 
-    | { type: 'ADD_TO_FAVORITES'; payload: number }
-    | { type: 'REMOVE_FROM_FAVORITES'; payload: number };
+    | { type: 'ADD_TO_FAVORITES'; payload: string } // Изменено на string
+    | { type: 'REMOVE_FROM_FAVORITES'; payload: string }; // Изменено на string
 
 const initialState: FavoriteState = {
     items: []

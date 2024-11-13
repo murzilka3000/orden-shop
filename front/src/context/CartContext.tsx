@@ -1,7 +1,14 @@
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 import { CartItem } from '../types/Type';
 
-//TODO: вынести хук
+// Обновите CartItem, если он использует number для productId в types/Type.ts
+// export type CartItem = {
+//     productId: string; // Изменено на string
+//     quantity: number;
+//     price: number; 
+//     name: string;
+//     image: string;
+// };
 
 type CartState = {
     items: CartItem[];
@@ -9,10 +16,10 @@ type CartState = {
 
 type CartAction =
     | { type: 'ADD_TO_CART'; payload: CartItem }
-    | { type: 'REMOVE_FROM_CART'; payload: number }
-    | { type: 'CLEAR_CART'}
-    | { type: 'INCREASE_QUANTITY'; payload: number }
-    | { type: 'DECREASE_QUANTITY'; payload: number }
+    | { type: 'REMOVE_FROM_CART'; payload: string } // Изменено на string
+    | { type: 'CLEAR_CART' }
+    | { type: 'INCREASE_QUANTITY'; payload: string } // Изменено на string
+    | { type: 'DECREASE_QUANTITY'; payload: string } // Изменено на string
 
 const initialState: CartState = {
     items: []
@@ -41,9 +48,19 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         case 'CLEAR_CART':
             return { ...state, items: [] };
         case 'INCREASE_QUANTITY':
-            return { ...state, items: state.items.map(item => item.productId === action.payload ? { ...item, quantity: item.quantity + 1 } : item) };
+            return { 
+                ...state, 
+                items: state.items.map(item => 
+                    item.productId === action.payload ? { ...item, quantity: item.quantity + 1 } : item
+                ) 
+            };
         case 'DECREASE_QUANTITY':
-            return { ...state, items: state.items.map(item => item.productId === action.payload ? { ...item, quantity: item.quantity - 1 } : item) };
+            return { 
+                ...state, 
+                items: state.items.map(item => 
+                    item.productId === action.payload ? { ...item, quantity: Math.max(1, item.quantity - 1) } : item
+                ) 
+            };
         default:
             return state;
     }

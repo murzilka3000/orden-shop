@@ -6,7 +6,7 @@ import s from './ProductDetail.module.scss';
 import Layout from "../layout/Layout";
 
 interface Product {
-  id: number;
+  _id: string;
   name: string;
   description: string;
   price: number;
@@ -46,7 +46,7 @@ const ProductDetail: React.FC = () => {
       dispatch({
         type: 'ADD_TO_CART',
         payload: {
-          productId: product.id,
+          productId: product._id,
           quantity: 1,
           price: product.price,
           name: product.name,

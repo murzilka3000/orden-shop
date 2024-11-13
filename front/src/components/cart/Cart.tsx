@@ -5,7 +5,7 @@ import s from './cart.module.scss';
 import { Link } from 'react-router-dom';
 
 interface Product {
-    id: number;
+    _id: string;
     name: string;
     price: number;
     image: string;
@@ -19,7 +19,7 @@ const Cart: React.FC = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:5002/api/products'); // URL вашего products-server
+                const response = await axios.get('http://localhost:5002/api/products');
                 setProducts(response.data);
             } catch (error) {
                 console.error('Ошибка при загрузке товаров:', error);
@@ -30,11 +30,11 @@ const Cart: React.FC = () => {
 
     // Рассчитываем общую сумму корзины
     const totalPrice = state.items.reduce((total, item) => {
-        const product = products.find(p => p.id === item.productId);
+        const product = products.find(p => p._id === item.productId); // Здесь используем string
         return total + (product ? item.quantity * product.price : 0);
     }, 0);
 
-    const handleRemoveToCart = (productId: number) => {
+    const handleRemoveToCart = (productId: string) => { // productId теперь string
         dispatch({ type: 'REMOVE_FROM_CART', payload: productId });
     };
 
@@ -42,14 +42,16 @@ const Cart: React.FC = () => {
         dispatch({ type: 'CLEAR_CART' });
     };
 
-    const handleIncreaseQuantity = (productId: number) => {
+    const handleIncreaseQuantity = (productId: string) => { // productId теперь string
         dispatch({ type: 'INCREASE_QUANTITY', payload: productId });
     };
 
-    const handleDecreaseQuantity = (productId: number) => {
-        dispatch({ type: 'DECREASE_QUANTITY', payload: productId });
-        if (state.items.find(item => item.productId === productId)?.quantity === 1) {
+    const handleDecreaseQuantity = (productId: string) => { // productId теперь string
+        const item = state.items.find(item => item.productId === productId);
+        if (item && item.quantity === 1) {
             handleRemoveToCart(productId);
+        } else {
+            dispatch({ type: 'DECREASE_QUANTITY', payload: productId });
         }
     };
 
@@ -58,7 +60,7 @@ const Cart: React.FC = () => {
             <h2>Cart</h2>
             <div className={s.cart_container}>
                 {state.items.map((item, index) => {
-                    const product = products.find(p => p.id === item.productId);
+                    const product = products.find(p => p._id === item.productId); // productId как string
                     return product ? (
                         <div className={s.cart_item} key={index}>
                             <img src={product.image} alt={product.name} />

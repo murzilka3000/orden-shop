@@ -13,13 +13,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { state: favoriteState, dispatch: favoriteDispatch } = useFavorites(); // Подключаем избранное
 
   // Проверка, находится ли товар в избранном
-  const isFavorite = favoriteState.items.includes(product.id);
+  const isFavorite = favoriteState.items.includes(product._id);
 
   const handleAddToCart = () => {
     cartDispatch({
       type: 'ADD_TO_CART',
       payload: {
-        productId: product.id,
+        productId: product._id,
         quantity: 1,
         price: product.price,
         name: product.name,
@@ -28,7 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     });
 
     // Удаляем товар из избранного
-    favoriteDispatch({ type: 'REMOVE_FROM_FAVORITES', payload: product.id });
+    favoriteDispatch({ type: 'REMOVE_FROM_FAVORITES', payload: product._id });
 
     alert('Product added to cart!');
 
@@ -38,16 +38,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   // Функция для добавления/удаления из избранного
   const toggleFavorite = () => {
     if (isFavorite) {
-      favoriteDispatch({ type: 'REMOVE_FROM_FAVORITES', payload: product.id });
+      favoriteDispatch({ type: 'REMOVE_FROM_FAVORITES', payload: product._id });
     } else {
-      favoriteDispatch({ type: 'ADD_TO_FAVORITES', payload: product.id });
+      favoriteDispatch({ type: 'ADD_TO_FAVORITES', payload: product._id });
     }
   };
 
   return (
     <div className={s.product_card}>
       {/* Ссылка на страницу товара */}
-      <Link to={`/product/${product.id}`}>
+      <Link to={`/product/${product._id}`}>
         <img className={s.product_image} src={product.image} alt={product.name} />
         <h3>{product.name}</h3>
         <p>Price: ${product.price}</p>

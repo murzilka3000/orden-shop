@@ -28,7 +28,7 @@ const FavoritesList: React.FC = () => {
     }, []);
 
     // Фильтрация избранных товаров
-    const favoriteProducts: Product[] = products.filter(product => state.items.includes(product.id));
+    const favoriteProducts: Product[] = products.filter(product => state.items.includes(product._id));
 
     if (favoriteProducts.length === 0) {
         return <p>Your favorites list is empty.</p>;
@@ -38,14 +38,14 @@ const FavoritesList: React.FC = () => {
         cartDispatch({
             type: 'ADD_TO_CART',
             payload: {
-                productId: product.id,
+                productId: product._id,
                 quantity: 1,
                 price: product.price,
                 name: product.name,
                 image: product.image,
             },
         });
-        favoriteDispatch({ type: 'REMOVE_FROM_FAVORITES', payload: product.id });
+        favoriteDispatch({ type: 'REMOVE_FROM_FAVORITES', payload: product._id });
 
         // Устанавливаем уведомление
         setNotification('Product added to cart!');
@@ -57,7 +57,7 @@ const FavoritesList: React.FC = () => {
             <h2>Your Favorites</h2>
             <ul>
                 {favoriteProducts.map(product => (
-                    <li key={product.id}>
+                    <li key={product._id}>
                         <h3>{product.name}</h3>
                         <p>{product.description}</p>
                         <p>Price: ${product.price}</p>

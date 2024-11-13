@@ -34,6 +34,9 @@ const Header = () => {
           <Link to="/favorites">
             <img src="/images/icons/favoitites.svg" alt="cart" />
           </Link>
+          <Link to="/admin">
+            <p>admin</p>
+          </Link>
         </div>
         </div>
       </Layout>
