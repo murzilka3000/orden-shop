@@ -24,6 +24,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         price: product.price,
         name: product.name,
         image: product.image,
+        discountPrice: product.discountPrice,
+        category: product.category,
       },
     });
 
@@ -51,6 +53,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <img className={s.product_image} src={product.image} alt={product.name} />
         <h3>{product.name}</h3>
         <p>Price: ${product.price}</p>
+        {product.discountPrice && (
+          <p>
+            Discount Price: ${product.discountPrice}
+          </p>
+        )}
+        <p>Category: {product.category}</p>
       </Link>
       <button onClick={handleAddToCart}>Add to cart</button>
       <button onClick={toggleFavorite}>

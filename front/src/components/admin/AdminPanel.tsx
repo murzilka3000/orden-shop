@@ -12,6 +12,7 @@ const AdminPanel: React.FC = () => {
     price: 0,
     image: '',
     discountPrice: null, // Используем null вместо undefined
+    category: '',
   });
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
@@ -32,7 +33,7 @@ const AdminPanel: React.FC = () => {
     try {
       const response = await axios.post('http://localhost:5002/api/products', newProduct);
       setProducts([...products, response.data]);
-      setNewProduct({ name: '', description: '', price: 0, image: '', discountPrice: null });
+      setNewProduct({ name: '', description: '', price: 0, image: '', discountPrice: null, category: '' });
     } catch (error) {
       console.error('Ошибка при добавлении товара:', error);
     }
@@ -82,6 +83,16 @@ const AdminPanel: React.FC = () => {
             value={newProduct.description}
             onChange={(e) => handleInputChange('description', e.target.value)}
           />
+          <select
+            value={newProduct.category}
+            onChange={(e) => handleInputChange('category', e.target.value)}
+          >
+            <option value="">Select category</option>
+            <option value="shoes">обувь</option>
+            <option value="clothes">одежда</option>
+            <option value="accessories">аксессуары</option>
+            <option value="bags">сумки</option>
+          </select>
           <input
             type="number"
             placeholder="Price"
@@ -122,6 +133,18 @@ const AdminPanel: React.FC = () => {
                       setEditingProduct({ ...editingProduct, description: e.target.value })
                     }
                   />
+                  <select
+                    value={editingProduct.category}
+                    onChange={(e) =>
+                      setEditingProduct({ ...editingProduct, category: e.target.value })
+                    }
+                  >
+                    <option value="">Select category</option>
+                    <option value="shoes">обувь</option>
+                    <option value="clothes">одежда</option>
+                    <option value="accessories">аксессуары</option>
+                    <option value="bags">сумки</option>
+                  </select>
                   <input
                     type="number"
                     value={editingProduct.price || ''}
@@ -156,6 +179,7 @@ const AdminPanel: React.FC = () => {
                 <div>
                   <h3>{product.name}</h3>
                   <p>{product.description}</p>
+                  <p>Category: {product.category}</p>
                   <p>Price: ${product.price}</p>
                   {product.discountPrice && (
                     <p>

@@ -5,6 +5,7 @@ export type Product = {
     price: number
     image: string,
     discountPrice?: number | null; 
+    category: string;
 }
   
   export type CartItem = {
@@ -14,4 +15,5 @@ export type Product = {
     name: string;
     image: string;
     discountPrice?: number | null; 
+    category: string;
 };
