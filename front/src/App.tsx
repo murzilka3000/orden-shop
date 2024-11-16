@@ -1,3 +1,5 @@
+// App.tsx
+
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import Header from "./components/header/Header";
@@ -10,18 +12,12 @@ import FavoritesPage from "./pages/favorites_page/FavoritesPage";
 import ProductDetail from "./components/product_detail/ProductDetail";
 import { FavoritesProvider } from "./context/FavoritesContext";
 import AdminPanel from "./components/admin/AdminPanel";
-import "./App.css";
 import Login from "./components/login/Login";
-import { AuthProvider, useAuth } from "./context/AuthContext";
-import Register from './components/register/Register'; // Импорт компонента регистрации
-
-// Приватный маршрут
-const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
-  const { isAuthenticated } = useAuth(); // Проверяем авторизацию из контекста
-
-  return isAuthenticated ? children : <Navigate to="/login" />;
-};
-
+import { AuthProvider } from "./context/AuthContext";
+import Register from './components/register/Register'; 
+import DiscountPrice from "./components/discountPrice/DiscountPrice";
+import PrivateRoute from "./components/PrivateRoute"; // Импортируем PrivateRoute
+import "./App.css";
 
 const App: React.FC = () => {
   return (
@@ -39,7 +35,8 @@ const App: React.FC = () => {
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/product/:productId" element={<ProductDetail />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} /> {/* Новый маршрут для регистрации */}
+              <Route path="/discount-price" element={<DiscountPrice />} />
+              <Route path="/register" element={<Register />} />
 
               {/* Защищённые маршруты */}
               <Route

@@ -5,6 +5,7 @@ import s from './AdminPanel.module.scss';
 import Layout from '../layout/Layout';
 
 const AdminPanel: React.FC = () => {
+
   const [products, setProducts] = useState<Product[]>([]);
   const [newProduct, setNewProduct] = useState({
     name: '',
@@ -13,6 +14,7 @@ const AdminPanel: React.FC = () => {
     image: '',
     discountPrice: null, // Используем null вместо undefined
     category: '',
+    createdAt: new Date().toISOString(),
   });
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
@@ -33,7 +35,15 @@ const AdminPanel: React.FC = () => {
     try {
       const response = await axios.post('http://localhost:5002/api/products', newProduct);
       setProducts([...products, response.data]);
-      setNewProduct({ name: '', description: '', price: 0, image: '', discountPrice: null, category: '' });
+      setNewProduct({ 
+        name: '', 
+        description: '', 
+        price: 0, 
+        image: '', 
+        discountPrice: null, 
+        category: '',
+        createdAt: new Date().toISOString(),
+      });
     } catch (error) {
       console.error('Ошибка при добавлении товара:', error);
     }
@@ -82,6 +92,12 @@ const AdminPanel: React.FC = () => {
             placeholder="Description"
             value={newProduct.description}
             onChange={(e) => handleInputChange('description', e.target.value)}
+          />
+          <input
+            type="date"
+            placeholder="Created At"
+            value={newProduct.createdAt}
+            onChange={(e) => handleInputChange('createdAt', e.target.value)}
           />
           <select
             value={newProduct.category}

@@ -14,8 +14,13 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       const response = await api.post("/auth/login", { username, password });
-      login(response.data.token); // Сохраняем токен через контекст
-      navigate("/admin"); // Перенаправляем на админ-панель
+      const { token, role } = response.data; // Получаем роль вместе с токеном
+      login(token, role); // Сохраняем токен и роль
+      if (role === "admin") {
+        navigate("/admin"); // Перенаправляем на админ-панель
+      } else {
+        setError("У вас нет доступа к админ-панели");
+      }
     } catch {
       setError("Неверное имя пользователя или пароль");
     }

@@ -20,7 +20,7 @@ const Header = () => {
             </button>
           </Link>
          
-          <Link to="#">
+          <Link to="/discount-price">
             <button>
                 <img src="/images/icons/header_sale.svg" alt="" />
                 <span>Акции</span>

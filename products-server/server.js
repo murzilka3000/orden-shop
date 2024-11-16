@@ -4,6 +4,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth'); // Маршруты авторизации
 const productRoutes = require('./routes/products'); // Маршруты продуктов
 const authenticateToken = require('./middleware/authenticateToken'); // Middleware для проверки токена
+const adminRoutes = require('./routes/admin'); 
 
 const app = express();
 app.use(cors());
@@ -21,6 +22,7 @@ mongoose.connect(MONGO_URL, {
 // Подключение маршрутов для авторизации и продуктов
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes); // Продукты не требуют токена
+app.use('/api', adminRoutes); // Админ-панель требует авторизации
 
 // Пример защищённого маршрута
 app.get('/api/protected', authenticateToken, (req, res) => {

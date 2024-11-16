@@ -1,4 +1,3 @@
-// routes/auth.js
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -9,7 +8,7 @@ const JWT_SECRET = 'your_jwt_secret'; // Секретный ключ для JWT
 
 // Маршрут регистрации
 router.post('/register', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, role } = req.body;
 
   try {
     // Проверка на существование пользователя
@@ -20,12 +19,20 @@ router.post('/register', async (req, res) => {
 
     // Хеширование пароля
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, password: hashedPassword });
+
+    // Создание нового пользователя
+    const newUser = new User({
+      username,
+      password: hashedPassword,
+      role: role || 'user', // Если роль не указана, будет назначена роль 'user'
+    });
+
     await newUser.save();
 
     res.status(201).json({ message: 'Пользователь успешно зарегистрирован' });
   } catch (error) {
-    res.status(500).json({ message: 'Ошибка при регистрации пользователя', error });
+    console.error('Ошибка при регистрации:', error);
+    res.status(500).json({ message: 'Ошибка при регистрации', error });
   }
 });
 
@@ -34,20 +41,34 @@ router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
+    // Поиск пользователя по имени
     const user = await User.findOne({ username });
     if (!user) {
+      console.log(`Пользователь с именем ${username} не найден`);
       return res.status(401).json({ message: 'Неверное имя пользователя или пароль' });
     }
 
+    console.log('Найден пользователь:', user);
+
+    // Проверка пароля
     const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log(`Сравнение паролей: ${isPasswordValid}`);
+
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Неверное имя пользователя или пароль' });
     }
 
-    // Создание JWT токена
-    const token = jwt.sign({ id: user._id, username: user.username }, JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
+    // Создание JWT токена с ролью
+    const token = jwt.sign(
+      { id: user._id, username: user.username, role: user.role },
+      JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    // Возвращаем токен и роль
+    res.json({ token, role: user.role });
   } catch (error) {
+    console.error('Ошибка при входе:', error);
     res.status(500).json({ message: 'Ошибка при входе', error });
   }
 });

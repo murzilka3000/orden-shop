@@ -5,6 +5,7 @@ import { Product } from '../../types/Type';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import Notification from '../notification/Notification';
+import Layout from '../layout/Layout';
 
 const FavoritesList: React.FC = () => {
     const { state, dispatch: favoriteDispatch } = useFavorites();
@@ -43,6 +44,8 @@ const FavoritesList: React.FC = () => {
                 price: product.price,
                 name: product.name,
                 image: product.image,
+                discountPrice: product.discountPrice,
+                category: product.category,
             },
         });
         favoriteDispatch({ type: 'REMOVE_FROM_FAVORITES', payload: product._id });
@@ -54,7 +57,8 @@ const FavoritesList: React.FC = () => {
 
     return (
         <div>
-            <h2>Your Favorites</h2>
+           <Layout>
+           <h2>Your Favorites</h2>
             <ul>
                 {favoriteProducts.map(product => (
                     <li key={product._id}>
@@ -73,6 +77,7 @@ const FavoritesList: React.FC = () => {
                     onClose={() => setNotification(null)} 
                 />
             )}
+           </Layout>
         </div>
     );
 };
