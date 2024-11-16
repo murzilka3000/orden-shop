@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Product } from '../../types/Type';
 import s from './AdminPanel.module.scss';
+import Layout from '../layout/Layout';
 
 const AdminPanel: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -52,6 +53,7 @@ const AdminPanel: React.FC = () => {
 
   return (
     <div className={s.admin_panel}>
+      <Layout>
       <h2>Admin Panel</h2>
       <div className={s.add_product}>
         <input
@@ -81,7 +83,7 @@ const AdminPanel: React.FC = () => {
         <button onClick={handleAddProduct}>Add Product</button>
       </div>
 
-      <ul className={s.product_list}>
+      <ul className={s.product}>
         {products.map((product) => (
           <li key={product._id}>
             {editingProduct?._id === product._id ? (
@@ -110,18 +112,21 @@ const AdminPanel: React.FC = () => {
                 <button onClick={() => setEditingProduct(null)}>Cancel</button>
               </>
             ) : (
-              <>
+              <div>
+                <div>
                 <h3>{product.name}</h3>
                 <p>{product.description}</p>
                 <p>Price: ${product.price}</p>
-                <img src={product.image} alt={product.name} />
+                <img className={s.product_image} src={product.image} alt={product.name} />
                 <button onClick={() => setEditingProduct(product)}>Edit</button>
                 <button onClick={() => handleDeleteProduct(product._id)}>Delete</button>
-              </>
+              </div>
+              </div>
             )}
           </li>
         ))}
       </ul>
+      </Layout>
     </div>
   );
 };
