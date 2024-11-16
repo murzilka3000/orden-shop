@@ -27,7 +27,7 @@ const ProductList: React.FC = () => {
       <Layout>
         <div className={s.product_list}>
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
       </Layout>
