@@ -14,7 +14,7 @@ const AdminPanel: React.FC = () => {
     image: '',
     discountPrice: null, // Используем null вместо undefined
     category: '',
-    createdAt: new Date().toISOString(),
+    brand: '',
   });
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
@@ -42,7 +42,7 @@ const AdminPanel: React.FC = () => {
         image: '', 
         discountPrice: null, 
         category: '',
-        createdAt: new Date().toISOString(),
+        brand: '',
       });
     } catch (error) {
       console.error('Ошибка при добавлении товара:', error);
@@ -87,17 +87,21 @@ const AdminPanel: React.FC = () => {
             value={newProduct.name}
             onChange={(e) => handleInputChange('name', e.target.value)}
           />
+          <select
+            value={newProduct.brand}
+            onChange={(e) => handleInputChange('brand', e.target.value)}
+          >
+              <option value="nike">nike</option>
+              <option value="adidas">adidas</option>
+              <option value="puma">puma</option>
+              <option value="kappa">kappa</option>
+              <option value="nb">nb</option>
+          </select>
           <input
             type="text"
             placeholder="Description"
             value={newProduct.description}
             onChange={(e) => handleInputChange('description', e.target.value)}
-          />
-          <input
-            type="date"
-            placeholder="Created At"
-            value={newProduct.createdAt}
-            onChange={(e) => handleInputChange('createdAt', e.target.value)}
           />
           <select
             value={newProduct.category}
@@ -171,6 +175,18 @@ const AdminPanel: React.FC = () => {
                       })
                     }
                   />
+                  <select
+                    value={editingProduct.brand}
+                    onChange={(e) =>
+                      setEditingProduct({ ...editingProduct, brand: e.target.value })
+                    }
+                  >
+                    <option value="nike">nike</option>
+                    <option value="adidas">adidas</option>
+                    <option value="puma">puma</option>
+                    <option value="kappa">kappa</option>
+                    <option value="nb">nb</option>
+                  </select>
                   <input
                     type="number"
                     value={editingProduct.discountPrice ?? ''}
@@ -196,6 +212,7 @@ const AdminPanel: React.FC = () => {
                   <h3>{product.name}</h3>
                   <p>{product.description}</p>
                   <p>Category: {product.category}</p>
+                  <p>Brand: {product.brand}</p>
                   <p>Price: ${product.price}</p>
                   {product.discountPrice && (
                     <p>

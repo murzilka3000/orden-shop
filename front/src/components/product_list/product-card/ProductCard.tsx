@@ -26,7 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         image: product.image,
         discountPrice: product.discountPrice,
         category: product.category,
-        createdAt: product.createdAt,
+        brand: product.brand,
       },
     });
 
@@ -60,17 +60,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </p>
         )}
         <p>Category: {product.category}</p>
-        <p>Дата выпуска: {
-            product.createdAt ? 
-              new Date(product.createdAt).toLocaleDateString('ru-RU', {
-                weekday: 'long', 
-                year: 'numeric',
-                month: 'long', 
-                day: 'numeric',
-              }) : 
-              'Дата не указана'
-          }
-          </p>
+        <p>Brand: {product.brand}</p>
       </Link>
       <button onClick={handleAddToCart}>Add to cart</button>
       <button onClick={toggleFavorite}>

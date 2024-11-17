@@ -6,7 +6,7 @@ export type Product = {
     image: string,
     discountPrice?: number | null; 
     category: string;
-    createdAt: Date;
+    brand: string;
 }
   
   export type CartItem = {
@@ -17,5 +17,5 @@ export type Product = {
     image: string;
     discountPrice?: number | null; 
     category: string;
-    createdAt: Date;
+    brand: string;
 };

@@ -18,6 +18,7 @@ import Register from './components/register/Register';
 import DiscountPrice from "./components/discountPrice/DiscountPrice";
 import PrivateRoute from "./components/PrivateRoute"; // Импортируем PrivateRoute
 import "./App.css";
+import BrandProductsPage from "./components/brand_products/BrandProducts";
 
 const App: React.FC = () => {
   return (
@@ -37,6 +38,7 @@ const App: React.FC = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/discount-price" element={<DiscountPrice />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/brand/:brandName" element={<BrandProductsPage />} />
 
               {/* Защищённые маршруты */}
               <Route

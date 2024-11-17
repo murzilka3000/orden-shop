@@ -24,6 +24,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes); // Продукты не требуют токена
 app.use('/api', adminRoutes); // Админ-панель требует авторизации
 
+
+
+
 // Пример защищённого маршрута
 app.get('/api/protected', authenticateToken, (req, res) => {
   res.json({ message: 'Это защищённый маршрут', user: req.user });

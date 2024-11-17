@@ -12,6 +12,29 @@ router.get('/', async (req, res) => {
   }
 });
 
+
+router.get('/brands', async (req, res) => {
+  try {
+    const brands = await Product.distinct('brand'); // Получаем уникальные значения поля "brand"
+    res.json(brands); // Отправляем данные клиенту
+  } catch (error) {
+    console.error('Ошибка при получении брендов:', error); // Логируем ошибку для отладки
+    res.status(500).json({ message: 'Ошибка при получении брендов', error });
+  }
+});
+
+// Получение товаров по бренду
+router.get('/brand/:brandName', async (req, res) => {
+  try {
+    const brandName = req.params.brandName; // Получаем имя бренда из URL
+    const products = await Product.find({ brand: brandName }); // Фильтруем товары по бренду
+    res.json(products);
+  } catch (error) {
+    console.error('Ошибка при фильтрации товаров по бренду:', error);
+    res.status(500).json({ message: 'Ошибка при фильтрации товаров по бренду', error });
+  }
+});
+
 // Получение товара по ID
 router.get('/:id', async (req, res) => {
   try {
@@ -48,6 +71,7 @@ router.put('/:id', async (req, res) => {
     res.status(400).json({ message: 'Ошибка при обновлении товара', error });
   }
 });
+
 
 // Удаление товара
 router.delete('/:id', async (req, res) => {
